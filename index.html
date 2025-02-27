@@ -1,0 +1,107 @@
+<!DOCTYPE html>  
+<html lang="es">  
+<head>  
+    <meta charset="UTF-8">  
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Mafer X Elmo Web</title>  
+    <link rel="stylesheet" href="estilos.css">  
+    <meta property="og:title" content="Mafer x elmo Web">  
+    <meta property="og:description" content="Alquila o compra tu bot personalizado con By Andrea ventas"
+    <meta property="og:image" content="https://i.ibb.co/RGs0d8yd/file.jpg">  
+    <meta property="og:url" content="https://deylinqff.github.io/Kirito-Bot-web/">  
+    <meta property="og:type" content="website">  
+    <meta name="twitter:card" content="summary_large_image">  
+    <meta name="twitter:title" content="Mafer X Elmo Web">  
+    <meta name="twitter:description" content="Alquila o compra tu bot personalizado con By Andrea ventas">  
+    <meta name="twitter:image" content="https://i.ibb.co/RGs0d8yd/file.jpg">  
+</head>  
+<body>  
+<div id="registro" class="container" style="display: none;">
+    <h1>Registro de Usuario</h1>
+    <form id="form-registro">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required>
+        <label for="email">Correo Electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="password">Contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
+
+<div id="perfil" class="container" style="display: none;">
+    <h1>Bienvenido, <span id="user-name"></span>!</h1>
+    <p>Correo: <span id="user-email"></span></p>
+    <button onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
+
+<div id="seleccion-bots" class="container" style="display: none;">
+    <h1>Elige tu Bot</h1>
+    <div class="bot">
+        <img src="assets/images/bot1.png" alt="bot de grupo">
+        <h2>MAFER X ELMO PARA GRUPOS</h2>
+        <button onclick="redireccionarPago('Bot de Grupos', 70)">𝗠𝗘𝗡𝗦: 70$</button>
+    </div>
+    <div class="bot">
+        <img src="assets/images/bot2.jpg" alt="Bot Personalizado">
+        <h2>BOT PERSONALIZADO</h2>
+        <button onclick="redireccionarPago('Bot Personalizado', 180)">𝗠𝗘𝗡𝗦: 180$</button>
+    </div>
+</div>
+
+<p align="center">
+  <a href="https://github.com/byandreaventas">
+    <img src="https://img.shields.io/badge/GitHub-Deylinqff-181717?style=for-the-badge&logo=github">
+  </a>
+  <a href="https://wa.me/528144384545">
+    <img src="https://img.shields.io/badge/WhatsApp-Contactar-25D366?style=for-the-badge&logo=whatsapp">
+  </a>
+  <a href="byandreaventas18@gmail.com">
+    <img src="https://img.shields.io/badge/Email-Enviame%20un%20un%20correo-EA4335?style=for-the-badge&logo=gmail">
+  </a>
+</p>
+
+<script src="main.js"></script>
+<script>
+    window.onload = function() {
+        if(localStorage.getItem('user')) {
+            mostrarPerfil();
+        } else {
+            document.getElementById('registro').style.display = 'block';
+        }
+    };
+
+    document.getElementById("form-registro").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const nombre = document.getElementById('nombre').value;
+        const email = document.getElementById('email').value;
+        localStorage.setItem('user', JSON.stringify({ nombre, email }));
+        mostrarPerfil();
+    });
+
+    function mostrarPerfil() {
+        const usuario = JSON.parse(localStorage.getItem('user'));
+        document.getElementById('user-name').innerText = usuario.nombre;
+        document.getElementById('user-email').innerText = usuario.email;
+        document.getElementById('registro').style.display = 'none';
+        document.getElementById('perfil').style.display = 'block';
+        document.getElementById('seleccion-bots').style.display = 'block';
+    }
+
+    function cerrarSesion() {
+        localStorage.removeItem('user');
+        document.getElementById('perfil').style.display = 'none';
+        document.getElementById('registro').style.display = 'block';
+        document.getElementById('seleccion-bots').style.display = 'none';
+    }
+
+    function redireccionarPago(tipoBot, precio) {
+        const numero = "528144384545";  
+        const mensaje = `Hola, quiero comprar el ${tipoBot} por ${precio}$.`;  
+        const url = `https://wa.me/${numero}?text=${encodeURIComponent(mensaje)}`;  
+        window.location.href = url;  
+    }
+</script>
+
+</body>
+</html>
